@@ -1,0 +1,19 @@
+/**
+ * This is the Game of Life. Each cell has a state: alive (#) or dead (.). 
+ * The number of alive cells is randomly selected at the start of the game.
+ * The state of the cells changes each generation. If an alive cell has 2 
+ * or 3 alive cells next to it, it stays alive. If it has 1, 0, or 4 or more 
+ * cells next to it, it will die. A dead cell comes alive when there are 3 alive
+ * cells next to it.
+ * 
+ * Author: Zach Brough
+ * Version: 1.5.2023
+ */
+import java.util.Random;
+import java.util.Scanner;
+
+public class GameOfLife {
+    private int width;
+    private int height;
+    private boolean[][] cells;
+}
