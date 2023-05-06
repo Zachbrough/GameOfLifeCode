@@ -7,7 +7,7 @@
  * cells next to it.
  * 
  * Author: Zach Brough
- * Version: 6.5.2023
+ * Version: 7.5.2023
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -32,6 +32,16 @@ public class GameOfLife {
             for (int y = 0; y < height; y++) {
                 cells[x][y] = rand.nextBoolean();
             }
+        }
+    }
+
+        // Prints the board
+    public void display() {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                System.out.print(cells[x][y] ? '#' : '.');
+            }
+            System.out.println();
         }
     }
 }
