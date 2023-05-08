@@ -7,7 +7,7 @@
  * cells next to it.
  * 
  * Author: Zach Brough
- * Version: 7.5.2023
+ * Version: 9.5.2023
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -43,5 +43,23 @@ public class GameOfLife {
             }
             System.out.println();
         }
+    }
+        // Counts live neighbors
+    public int countLiveNeighbors(int x, int y) {
+        int count = 0;
+        for (int dx = -1; dx <= 1; dx++) { // dx scans the x-axis around the cells. dx means delta x because this measures the change between the 2 variables
+            for (int dy = -1; dy <= 1; dy++) { // dy scans the y-axis around the cells.
+                if (dx == 0 && dy == 0) {
+                    // Ignore the current cell
+                    continue;
+                }
+                int nx = x + dx; // Update the next x variable (nx)
+                int ny = y + dy; // Update the next y variable (ny)
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height && cells[nx][ny]) { // Checks if cell is alive
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
