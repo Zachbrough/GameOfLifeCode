@@ -7,7 +7,7 @@
  * cells next to it.
  * 
  * Author: Zach Brough
- * Version: 9.5.2023
+ * Version: 13.5.2023
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -61,5 +61,24 @@ public class GameOfLife {
             }
         }
         return count;
+    }
+        // Main function. It controls the UI
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        
+        int width = 0;
+        int height = 0;
+        
+        while (width <= 0 || height <= 0) {
+            width = scanner.nextInt();
+
+            height = scanner.nextInt();
+
+        }
+
+        GameOfLife game = new GameOfLife(width, height);
+        game.initializeRandom();
+        game.display();
     }
 }
