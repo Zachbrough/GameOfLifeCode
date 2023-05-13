@@ -7,7 +7,7 @@
  * cells next to it.
  * 
  * Author: Zach Brough
- * Version: 13.5.2023
+ * Version: 14.5.2023
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -44,6 +44,31 @@ public class GameOfLife {
             System.out.println();
         }
     }
+
+        // Advances a generation
+    public void advanceGeneration() {
+        boolean[][] newCells = new boolean[width][height]; // Makes a new cells array
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int liveNeighbors = countLiveNeighbors(x, y);
+                if (cells[x][y]) {
+                    // Cell is alive
+                    if (liveNeighbors == 2 || liveNeighbors == 3) {
+                        // Cell lives on
+                        newCells[x][y] = true;
+                    }
+                } else {
+                    // Cell is dead
+                    if (liveNeighbors == 3) {
+                        // Cell becomes alive
+                        newCells[x][y] = true;
+                    }
+                }
+            }
+        }
+        cells = newCells; // Copies newCells array into the normal cells array
+    }
+
         // Counts live neighbors
     public int countLiveNeighbors(int x, int y) {
         int count = 0;
