@@ -7,7 +7,7 @@
  * cells next to it.
  * 
  * Author: Zach Brough
- * Version: 14.5.2023
+ * Version: 16.5.2023
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -42,6 +42,15 @@ public class GameOfLife {
                 System.out.print(cells[x][y] ? '#' : '.');
             }
             System.out.println();
+        }
+    }
+
+        // Toggles cell states
+    public void toggleCellState(int x, int y) {
+        if (x >= 0 && x < width && y >= 0 && y < height) { // Checks the cell coordinates are valid
+            cells[x][y] = !cells[x][y];
+        } else {
+            System.out.println("Invalid cell coordinates!");
         }
     }
 
