@@ -114,5 +114,60 @@ public class GameOfLife {
         GameOfLife game = new GameOfLife(width, height);
         game.initializeRandom();
         game.display();
+
+        int choice = 0;
+        while (choice != 4) {
+            System.out.println("\nMENU:");
+            System.out.println("1. Next Generation");
+            System.out.println("2. Toggle Cell State");
+            System.out.println("3. Skip Generations");
+            System.out.println("4. Quit");
+            System.out.print("Enter your choice: ");
+
+
+            choice = scanner.nextInt();
+
+
+            switch (choice) {
+                case 1: // Advances a generation
+                    game.advanceGeneration();
+                    game.display();
+                    break;
+
+                case 2: // Toggles cell on and off
+                    System.out.print("Enter cell coordinates (x y): ");
+                    int x;
+                        x = scanner.nextInt();
+                        x--;
+
+                    int y;
+                        y = scanner.nextInt();
+                        y--;
+
+                    game.toggleCellState(x, y);
+                    game.display();
+                    break;
+
+                case 3: // For skipping multiple generations
+                    System.out.print("Enter the number of generations to skip: ");
+                    int numGenerations;
+
+                    numGenerations = scanner.nextInt();
+                            
+                    }   
+                    for (int i = 0; i < numGenerations; i++) {
+                        game.advanceGeneration();
+                    }
+                    game.display();
+                    break;
+
+                case 4: // Quits the game
+                    System.out.println("Quitting the game...");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
     }
 }
