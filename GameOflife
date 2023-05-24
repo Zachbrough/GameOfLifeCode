@@ -7,7 +7,7 @@
  * cells next to it.
  * 
  * Author: Zach Brough
- * Version: 16.5.2023
+ * Version: 18.5.2023
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -46,7 +46,16 @@ public class GameOfLife {
     }
 
         // Toggles cell states
-    public void toggleCellState(int x, int y) {
+    public void toggleCellState() {
+                            System.out.print("Enter cell coordinates (x y): ");
+                    int x;
+                        x = scanner.nextInt();
+                        x--;
+
+                    int y;
+                        y = scanner.nextInt();
+                        y--;
+
         if (x >= 0 && x < width && y >= 0 && y < height) { // Checks the cell coordinates are valid
             cells[x][y] = !cells[x][y];
         } else {
@@ -96,6 +105,20 @@ public class GameOfLife {
         }
         return count;
     }
+
+    public void advanceMultipleGenerations(){
+        System.out.print("Enter the number of generations to skip: ");
+        int numGenerations;
+
+        numGenerations = scanner.nextInt();
+                            
+        }   
+        for (int i = 0; i < numGenerations; i++) {
+            game.advanceGeneration();
+        }
+        game.display();
+        
+    }
         // Main function. It controls the UI
     public static void main(String[] args) {
 
@@ -135,30 +158,12 @@ public class GameOfLife {
                     break;
 
                 case 2: // Toggles cell on and off
-                    System.out.print("Enter cell coordinates (x y): ");
-                    int x;
-                        x = scanner.nextInt();
-                        x--;
-
-                    int y;
-                        y = scanner.nextInt();
-                        y--;
-
-                    game.toggleCellState(x, y);
+                    game.toggleCellState();
                     game.display();
                     break;
 
                 case 3: // For skipping multiple generations
-                    System.out.print("Enter the number of generations to skip: ");
-                    int numGenerations;
-
-                    numGenerations = scanner.nextInt();
-                            
-                    }   
-                    for (int i = 0; i < numGenerations; i++) {
-                        game.advanceGeneration();
-                    }
-                    game.display();
+                    game.advanceMultipleGenerations();
                     break;
 
                 case 4: // Quits the game
