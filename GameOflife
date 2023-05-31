@@ -7,12 +7,14 @@
  * cells next to it.
  * 
  * Author: Zach Brough
- * Version: 18.5.2023
+ * Version: 1.7.2023
  */
 import java.util.Random;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class GameOfLife {
+    // Variables. If you want to change maxInput go to line 121
     private int width; // Width of the board
     private int height; // Height of the board
     private boolean[][] cells; // Game board of the cells
@@ -35,7 +37,7 @@ public class GameOfLife {
         }
     }
 
-        // Prints the board
+    // Prints the board
     public void display() {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -45,7 +47,7 @@ public class GameOfLife {
         }
     }
 
-        // Toggles cell states
+    // Toggles cell states
     public void toggleCellState(int x, int y) {
         if (x >= 0 && x < width && y >= 0 && y < height) { // Checks the cell coordinates are valid
             cells[x][y] = !cells[x][y];
@@ -54,7 +56,7 @@ public class GameOfLife {
         }
     }
 
-        // Advances a generation
+    // Advances a generation
     public void advanceGeneration() {
         boolean[][] newCells = new boolean[width][height]; // Makes a new cells array
         for (int x = 0; x < width; x++) {
@@ -78,7 +80,7 @@ public class GameOfLife {
         cells = newCells; // Copies newCells array into the normal cells array
     }
 
-        // Counts live neighbors
+    // Counts live neighbors
     public int countLiveNeighbors(int x, int y) {
         int count = 0;
         for (int dx = -1; dx <= 1; dx++) { // dx scans the x-axis around the cells. dx means delta x because this measures the change between the 2 variables
@@ -96,7 +98,8 @@ public class GameOfLife {
         }
         return count;
     }
-        // Main function. It controls the UI
+
+    // Main function. It controls the UI
     public static void main(String[] args) {
         System.out.print("\u000c"); // Clears the screen
         System.out.println("Instructions");
@@ -115,12 +118,23 @@ public class GameOfLife {
         
         int width = 0;
         int height = 0;
+        final int maxInput = 10000; // Max input for width, height and skip generations varibles 
         
-        while (width <= 0 || height <= 0) {
-            width = scanner.nextInt();
+        while (width <= 0 || height <= 0 || width >= maxInput || height >= maxInput) {
+            try { // Scans for errors and gets the width and height
+                System.out.print("Enter the width of the game board: ");
+                width = scanner.nextInt();
 
-            height = scanner.nextInt();
+                System.out.print("Enter the height of the game board: ");
+                height = scanner.nextInt();
 
+                if (width <= 0 || height <= 0 || width >= maxInput || height >= maxInput) {
+                    System.out.println("Invalid board dimensions! Please enter positive whole values smaller than 10000");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Please enter positive integer whole value for the board dimensions.");
+                scanner.nextLine(); // Clear the invalid input from the scanner
+            }
         }
 
         GameOfLife game = new GameOfLife(width, height);
@@ -136,9 +150,13 @@ public class GameOfLife {
             System.out.println("4. Quit");
             System.out.print("Enter your choice: ");
 
-
-            choice = scanner.nextInt();
-
+            try {
+                choice = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid choice! Please enter a numerical whole value between 1 & 4.");
+                scanner.nextLine(); // Clear the invalid input from the scanner
+                continue; // Go back to the start of the loop
+            }
 
             switch (choice) {
                 case 1: // Advances a generation
@@ -149,23 +167,45 @@ public class GameOfLife {
                 case 2: // Toggles cell on and off
                     System.out.print("Enter cell coordinates (x y): ");
                     int x;
+                    try {
                         x = scanner.nextInt();
                         x--;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid choice! Please enter a numerical whole value within the board parameters.");
+                        scanner.nextLine(); // Clear the invalid input from the scanner
+                        continue; // Go back to the start of the loop
 
+                    }
                     int y;
+                    try {
                         y = scanner.nextInt();
                         y--;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid choice! Please enter a numerical whole value within the board parameters.");
+                        scanner.nextLine(); // Clear the invalid input from the scanner
+                        continue; // Go back to the start of the loop
 
+                    }
                     game.toggleCellState(x, y);
                     game.display();
                     break;
 
                 case 3: // For skipping multiple generations
                     System.out.print("Enter the number of generations to skip: ");
-                    int numGenerations;
-
-                    numGenerations = scanner.nextInt();
+                    int numGenerations = 0;
+                    while(numGenerations <= 0 || numGenerations >= maxInput){
+                        try {
+                            numGenerations = scanner.nextInt();
                             
+                            if(numGenerations <= 0 || numGenerations >= maxInput){
+                                System.out.println("Invalid choice! Please enter a positive numerical whole value smaller than " + maxInput + ".");
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid choice! Please enter a positive numerical whole value smaller than 10000" + maxInput + ".");
+                            scanner.nextLine(); // Clear the invalid input from the scanner
+                            continue; // Go back to the start of the loop
+
+                        }
                     }   
                     for (int i = 0; i < numGenerations; i++) {
                         game.advanceGeneration();
