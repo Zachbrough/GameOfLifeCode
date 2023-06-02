@@ -7,7 +7,7 @@
  * cells next to it.
  * 
  * Author: Zach Brough
- * Version: 1.7.2023
+ * Version: 3.7.2023
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -118,9 +118,9 @@ public class GameOfLife {
         
         int width = 0;
         int height = 0;
-        final int maxInput = 10000; // Max input for width, height and skip generations varibles 
+        final int MAXINPUT = 10000; // Max input for width, height and skip generations varibles 
         
-        while (width <= 0 || height <= 0 || width >= maxInput || height >= maxInput) {
+        while (width <= 0 || height <= 0 || width >= MAXINPUT || height >= MAXINPUT) {
             try { // Scans for errors and gets the width and height
                 System.out.print("Enter the width of the game board: ");
                 width = scanner.nextInt();
@@ -128,7 +128,7 @@ public class GameOfLife {
                 System.out.print("Enter the height of the game board: ");
                 height = scanner.nextInt();
 
-                if (width <= 0 || height <= 0 || width >= maxInput || height >= maxInput) {
+                if (width <= 0 || height <= 0 || width >= MAXINPUT || height >= MAXINPUT) {
                     System.out.println("Invalid board dimensions! Please enter positive whole values smaller than 10000");
                 }
             } catch (InputMismatchException e) {
@@ -193,15 +193,15 @@ public class GameOfLife {
                 case 3: // For skipping multiple generations
                     System.out.print("Enter the number of generations to skip: ");
                     int numGenerations = 0;
-                    while(numGenerations <= 0 || numGenerations >= maxInput){
+                    while(numGenerations <= 0 || numGenerations >= MAXINPUT){
                         try {
                             numGenerations = scanner.nextInt();
                             
-                            if(numGenerations <= 0 || numGenerations >= maxInput){
-                                System.out.println("Invalid choice! Please enter a positive numerical whole value smaller than " + maxInput + ".");
+                            if(numGenerations <= 0 || numGenerations >= MAXINPUT){
+                                System.out.println("Invalid choice! Please enter a positive numerical whole value smaller than " + MAXINPUT + ".");
                             }
                         } catch (InputMismatchException e) {
-                            System.out.println("Invalid choice! Please enter a positive numerical whole value smaller than 10000" + maxInput + ".");
+                            System.out.println("Invalid choice! Please enter a positive numerical whole value smaller than " + MAXINPUT + ".");
                             scanner.nextLine(); // Clear the invalid input from the scanner
                             continue; // Go back to the start of the loop
 
